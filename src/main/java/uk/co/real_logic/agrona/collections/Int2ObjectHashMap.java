@@ -15,11 +15,17 @@
  */
 package uk.co.real_logic.agrona.collections;
 
+import java.util.AbstractCollection;
+import java.util.AbstractSet;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
+import compat.java8.util.function.Supplier;
 import uk.co.real_logic.agrona.BitUtil;
-
-import java.util.*;
-import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 

@@ -15,8 +15,6 @@
  */
 package uk.co.real_logic.agrona;
 
-import sun.nio.ch.FileChannelImpl;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -26,7 +24,8 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.util.Arrays;
-import java.util.function.BiConsumer;
+
+import sun.nio.ch.FileChannelImpl;
 
 import static java.nio.channels.FileChannel.MapMode.READ_WRITE;
 
@@ -126,30 +125,6 @@ public class IoUtil
             {
                 throw new IllegalArgumentException("could not create " + descriptionLabel + " directory: " + directory);
             }
-        }
-    }
-
-    /**
-     * Create a directory, removing previous directory if it already exists.
-     * <p>
-     * Call callback if it does exist.
-     *
-     * @param directory        the directory which definitely exists after this method call.
-     * @param descriptionLabel to associate with the directory for any exceptions and callback.
-     * @param callback         to call if directory exists passing back absolute path and descriptionLabel.
-     */
-    public static void ensureDirectoryIsRecreated(
-        final File directory, final String descriptionLabel, final BiConsumer<String, String> callback)
-    {
-        if (directory.exists())
-        {
-            delete(directory, false);
-            callback.accept(directory.getAbsolutePath(), descriptionLabel);
-        }
-
-        if (!directory.mkdirs())
-        {
-            throw new IllegalArgumentException("could not create " + descriptionLabel + " directory: " + directory);
         }
     }
 

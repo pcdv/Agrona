@@ -15,8 +15,6 @@
  */
 package uk.co.real_logic.agrona.collections;
 
-import java.util.function.Consumer;
-
 /**
  * Map that takes two part int key and associates with an object.
  *
@@ -127,32 +125,6 @@ public class BiInt2ObjectMap<V>
         return map.remove(key);
     }
 
-    /**
-     * Iterate over the contents of the map
-     *
-     * @param consumer to apply to each value in the map
-     */
-    public void forEach(final Consumer<V> consumer)
-    {
-        map.forEach((k, v) -> consumer.accept(v));
-    }
-
-    /**
-     * Iterate over the contents of the map
-     *
-     * @param consumer to apply to each value in the map
-     */
-    public void forEach(final EntryConsumer<V> consumer)
-    {
-        map.forEach(
-            (compoundKey, value) ->
-            {
-                final int keyPartA = (int)(compoundKey >>> 32);
-                final int keyPartB = (int)(compoundKey & 0xFFFFFFFFL);
-
-                consumer.accept(keyPartA, keyPartB, value);
-            });
-    }
 
     /**
      * Return the number of unique entries in the map.

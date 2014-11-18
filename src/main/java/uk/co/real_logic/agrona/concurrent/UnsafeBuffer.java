@@ -261,6 +261,7 @@ public class UnsafeBuffer implements AtomicBuffer
         return UNSAFE.compareAndSwapLong(byteArray, addressOffset + index, expectedValue, updateValue);
     }
 
+    /*
     public long getAndSetLong(final int index, final long value)
     {
         boundsCheck(index, SIZE_OF_LONG);
@@ -274,7 +275,7 @@ public class UnsafeBuffer implements AtomicBuffer
 
         return UNSAFE.getAndAddLong(byteArray, addressOffset + index, delta);
     }
-
+    */
     ///////////////////////////////////////////////////////////////////////////
 
     public int getInt(final int index, final ByteOrder byteOrder)
@@ -355,6 +356,7 @@ public class UnsafeBuffer implements AtomicBuffer
         return UNSAFE.compareAndSwapInt(byteArray, addressOffset + index, expectedValue, updateValue);
     }
 
+    /*
     public int getAndSetInt(final int index, final int value)
     {
         boundsCheck(index, SIZE_OF_INT);
@@ -368,7 +370,7 @@ public class UnsafeBuffer implements AtomicBuffer
 
         return UNSAFE.getAndAddInt(byteArray, addressOffset + index, delta);
     }
-
+    */
     ///////////////////////////////////////////////////////////////////////////
 
     public double getDouble(final int index, final ByteOrder byteOrder)

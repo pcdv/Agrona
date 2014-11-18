@@ -15,6 +15,9 @@
  */
 package uk.co.real_logic.agrona.concurrent;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
@@ -22,12 +25,8 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 import uk.co.real_logic.agrona.BitUtil;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(Theories.class)
 public class AtomicBufferTest
@@ -180,34 +179,6 @@ public class AtomicBufferTest
     }
 
     @Theory
-    public void shouldGetAndSetLongToNativeBuffer(final AtomicBuffer buffer)
-    {
-        final ByteBuffer duplicateBuffer = buffer.duplicateByteBuffer().order(ByteOrder.nativeOrder());
-
-        duplicateBuffer.putLong(INDEX, LONG_VALUE);
-
-        final long afterValue = 1;
-        final long beforeValue = buffer.getAndSetLong(INDEX, afterValue);
-
-        assertThat(beforeValue, is(LONG_VALUE));
-        assertThat(duplicateBuffer.getLong(INDEX), is(afterValue));
-    }
-
-    @Theory
-    public void shouldGetAndAddLongToNativeBuffer(final AtomicBuffer buffer)
-    {
-        final ByteBuffer duplicateBuffer = buffer.duplicateByteBuffer().order(ByteOrder.nativeOrder());
-
-        duplicateBuffer.putLong(INDEX, LONG_VALUE);
-
-        final long delta = 1;
-        final long beforeValue = buffer.getAndAddLong(INDEX, delta);
-
-        assertThat(beforeValue, is(LONG_VALUE));
-        assertThat(duplicateBuffer.getLong(INDEX), is(LONG_VALUE + delta));
-    }
-
-    @Theory
     public void shouldGetIntFromBuffer(final AtomicBuffer buffer)
     {
         final ByteBuffer duplicateBuffer = buffer.duplicateByteBuffer().order(BYTE_ORDER);
@@ -300,34 +271,6 @@ public class AtomicBufferTest
         assertTrue(buffer.compareAndSetInt(INDEX, INT_VALUE, INT_VALUE + 1));
 
         assertThat(duplicateBuffer.getInt(INDEX), is(INT_VALUE + 1));
-    }
-
-    @Theory
-    public void shouldGetAndSetIntToNativeBuffer(final AtomicBuffer buffer)
-    {
-        final ByteBuffer duplicateBuffer = buffer.duplicateByteBuffer().order(ByteOrder.nativeOrder());
-
-        duplicateBuffer.putInt(INDEX, INT_VALUE);
-
-        final int afterValue = 1;
-        final int beforeValue = buffer.getAndSetInt(INDEX, afterValue);
-
-        assertThat(beforeValue, is(INT_VALUE));
-        assertThat(duplicateBuffer.getInt(INDEX), is(afterValue));
-    }
-
-    @Theory
-    public void shouldGetAndAddIntToNativeBuffer(final AtomicBuffer buffer)
-    {
-        final ByteBuffer duplicateBuffer = buffer.duplicateByteBuffer().order(ByteOrder.nativeOrder());
-
-        duplicateBuffer.putInt(INDEX, INT_VALUE);
-
-        final int delta = 1;
-        final int beforeValue = buffer.getAndAddInt(INDEX, delta);
-
-        assertThat(beforeValue, is(INT_VALUE));
-        assertThat(duplicateBuffer.getInt(INDEX), is(INT_VALUE + delta));
     }
 
     @Theory
